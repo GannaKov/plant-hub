@@ -18,9 +18,11 @@ import { toast } from 'sonner';
 
 const formSchema = z.object({
   username: z.string().min(5, {
-    message: 'Username must be at least 2 characters.',
+    message: 'Ім’я повинно містити щонайменше 5 символів.',
   }),
-  password: z.string().min(6),
+  password: z.string().min(6, {
+    message: 'Пароль повинен містити щонайменше 6 символів.',
+  }),
 });
 
 const AuthForm = () => {
@@ -33,17 +35,20 @@ const AuthForm = () => {
   });
 
   // 2. Define a submit handler.
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
+    values: z.infer<typeof formSchema>
+  ) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
     toast.success(`Супер`, {
-      description: ` "You have successfully signed in."`,
+      description: `Ви успішно увійшли`,
       action: {
         label: 'X',
         onClick: () => console.log('Toast dismissed'),
       },
     });
+    form.reset(); // Reset the form after submission
   };
   return (
     <Form {...form}>
@@ -58,7 +63,7 @@ const AuthForm = () => {
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormDescription>Введить ваш логін.</FormDescription>
+              <FormDescription>Введіть ваш логін.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -73,12 +78,12 @@ const AuthForm = () => {
               <FormControl>
                 <Input type="password" {...field} />
               </FormControl>
-              <FormDescription>Введить ваш пароль</FormDescription>
+              <FormDescription>Введіть ваш пароль.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">Увійти</Button>
       </form>
     </Form>
   );
