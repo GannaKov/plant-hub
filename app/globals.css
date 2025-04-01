@@ -182,13 +182,15 @@
 }
 
 /* Auth */
+/* */
 @utility auth-container {
-  /* Auth */
   @apply relative flex flex-col-reverse text-light-100;
 }
-
+@utility auth-box {
+  @apply mx-auto flex w-full max-w-lg flex-col gap-6 rounded-lg;
+}
 @utility auth-form {
-  @apply my-auto flex h-full min-h-screen items-center justify-center bg-dark-100 bg-pattern bg-cover bg-top px-5 py-10;
+  @apply my-auto flex h-full min-h-screen items-center justify-center bg-dark-100 bg-pattern bg-cover bg-top px-5 pt-10 pb-14;
 }
 /* Form */
 /* border-none! font-bold!*/
@@ -197,5 +199,5 @@
 } */
 
 @utility form-btn {
-  @apply inline-flex! min-h-8! w-full! items-center! justify-center! rounded-md! bg-btn! px-6! py-2! text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
+  @apply inline-flex! min-h-8! w-[80%]! items-center! justify-center! self-center rounded-md! bg-btn! px-6! py-2! text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
 }

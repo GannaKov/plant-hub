@@ -54,13 +54,16 @@ const AuthForm = () => {
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex w-full flex-col"
+      >
         {/* Username */}
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-6">
               <FormLabel className="capitalize">Логін</FormLabel>
               <FormControl>
                 <Input {...field} />
@@ -75,7 +78,7 @@ const AuthForm = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mb-8">
               <FormLabel className="capitalize">Пароль</FormLabel>
               <div className="relative">
                 <FormControl>
