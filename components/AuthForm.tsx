@@ -82,7 +82,15 @@ const AuthForm = () => {
               <FormLabel className="capitalize">Пароль</FormLabel>
               <div className="relative">
                 <FormControl>
-                  <Input type={showPassword ? 'text' : 'password'} {...field} />
+                  <Input
+                    type={showPassword ? 'text' : 'password'}
+                    {...field}
+                    style={{
+                      //   backgroundColor: 'white',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'white',
+                    }}
+                  />
                 </FormControl>
                 <button
                   type="button"
