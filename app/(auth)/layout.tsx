@@ -7,10 +7,10 @@ const layout = ({ children }: { children: ReactNode }) => {
     <main className="auth-container">
       <section className="auth-form">
         <div className="auth-box">
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-col items-center gap-3">
             {/* <Image src="/icons/logo.svg" alt="logo" width={37} height={37} /> */}
             <KrazLogo />
-            <h1 className="text-2xl font-semibold text-white">Plant Hub</h1>
+            <h1 className="mb-10 page-title">Plant Hub</h1>
           </div>
           <div>{children}</div>
         </div>

@@ -1,5 +1,6 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -34,7 +35,8 @@ const AuthForm = () => {
     },
   });
 
-  // 2. Define a submit handler.
+  const [showPassword, setShowPassword] = useState(false);
+
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
     values: z.infer<typeof formSchema>
   ) => {
@@ -75,15 +77,26 @@ const AuthForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="capitalize">Пароль</FormLabel>
-              <FormControl>
-                <Input type="password" {...field} />
-              </FormControl>
+              <div className="relative">
+                <FormControl>
+                  <Input type={showPassword ? 'text' : 'password'} {...field} />
+                </FormControl>
+                <button
+                  type="button"
+                  className="absolute top-1/2 right-2 -translate-y-1/2 transform"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                </button>
+              </div>
               <FormDescription>Введіть ваш пароль.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Увійти</Button>
+        <Button type="submit" className="form-btn">
+          Увійти
+        </Button>
       </form>
     </Form>
   );

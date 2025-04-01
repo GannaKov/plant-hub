@@ -37,7 +37,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-
+  --color-btn: #e7c9a5;
+  --color-btn-hover: #d4b58f;
   --color-green-100: #ecfdf3;
   --color-green-400: #4c7b62;
   --color-green-500: #2cc171;
@@ -96,6 +97,8 @@
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
+  /* --destructive: oklch(0.637 0.237 25.331); */
+  --destructive-foreground: hsl(210 40% 98%);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -130,7 +133,9 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  /* --destructive: oklch(0.704 0.191 22.216); */
+  --destructive: hsl(0 62.8% 30.6%);
+  --destructive-foreground: hsl(210 40% 98%);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -172,12 +177,25 @@
   @apply flex min-h-screen flex-1 flex-col bg-cover bg-top px-5 xs:px-10 md:px-16;
 }
 
+@utility page-title {
+  @apply text-3xl font-semibold text-white xs:text-5xl;
+}
+
 /* Auth */
 @utility auth-container {
   /* Auth */
-  @apply relative flex flex-col-reverse text-light-100 sm:flex-row;
+  @apply relative flex flex-col-reverse text-light-100;
 }
 
 @utility auth-form {
-  @apply my-auto flex h-full min-h-screen flex-1 items-center bg-dark-100 bg-pattern bg-cover bg-top px-5 py-10;
+  @apply my-auto flex h-full min-h-screen items-center justify-center bg-dark-100 bg-pattern bg-cover bg-top px-5 py-10;
+}
+/* Form */
+/* border-none! font-bold!*/
+/* @utility form-input {
+  @apply min-h-10! w-full! bg-dark-300! text-white! placeholder:font-normal! placeholder:text-light-100! focus-visible:shadow-none! focus-visible:ring-0!;
+} */
+
+@utility form-btn {
+  @apply inline-flex! min-h-8! w-full! items-center! justify-center! rounded-md! bg-btn! px-6! py-2! text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
 }
