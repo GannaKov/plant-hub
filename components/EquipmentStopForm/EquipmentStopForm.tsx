@@ -1,6 +1,6 @@
 'use client';
-import React, { useState } from 'react';
-import { Eye, EyeOff } from 'lucide-react';
+import React from 'react';
+
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  FormDescription,
+  //   FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -17,7 +17,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -25,6 +25,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { Textarea } from '@/components/ui/textarea';
 
 const formSchema = z.object({
   inventory_number: z.string(),
@@ -37,11 +38,11 @@ const formSchema = z.object({
   ),
   date: z.date(),
   time: z.string(),
+  description: z.string().min(1, { message: 'Опис обовʼязковий' }),
+  next_steps: z.string().min(1, { message: 'Це поле обовʼязкове' }),
 });
 
 const EquipmentStopForm = () => {
-  const [date, setDate] = React.useState<Date>();
-  const [time, setTime] = React.useState<string>('');
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,6 +53,8 @@ const EquipmentStopForm = () => {
       // Format the date to 'YYYY-MM-DD' format
       date: new Date(), // Current date
       time: new Date().toTimeString().slice(0, 5), // HH:MM
+      description: '',
+      next_steps: '',
     },
   });
 
@@ -229,7 +232,42 @@ const EquipmentStopForm = () => {
               />
             </div>
           </div>
-
+          {/* Description */}
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="mb-6">
+                <FormLabel>Опис</FormLabel>
+                <FormControl>
+                  <Textarea
+                    {...field}
+                    placeholder="Опишіть проблему або ситуацію"
+                    className="h-48 border-sidebar-ring!"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Next Steps */}
+          <FormField
+            control={form.control}
+            name="next_steps"
+            render={({ field }) => (
+              <FormItem className="mb-6">
+                <FormLabel>Наступні кроки</FormLabel>
+                <FormControl>
+                  <Textarea
+                    {...field}
+                    placeholder="Що потрібно зробити далі"
+                    className="h-48 border-sidebar-ring!"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type="submit" className="form-btn">
             Увійти
           </Button>
