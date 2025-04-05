@@ -18,7 +18,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 // import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
@@ -220,11 +220,14 @@ const EquipmentStopForm = () => {
                   <FormItem className="mx-auto mb-6">
                     <FormLabel className="flex justify-center">Час</FormLabel>
                     <FormControl>
-                      <Input
-                        type="time"
-                        {...field}
-                        className="w-[100px]! justify-between"
-                      />
+                      <div className="relative w-[100px]">
+                        <Clock className="absolute top-1/2 right-2 h-4 w-4 -translate-y-1/2" />
+                        <Input
+                          type="time"
+                          {...field}
+                          className="custom-time-input w-[100px]"
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
