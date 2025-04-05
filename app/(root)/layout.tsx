@@ -1,12 +1,12 @@
-// import Header from '@/components/Header';
+import Header from '@/components/Header';
 import { ReactNode } from 'react';
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
-    <main className="root-container">
+    <main>
+      <Header />
       <div className="mx-auto max-w-7xl">
-        {/* <Header /> */}
-        <div className="mt-20 pb-20">{children}</div>
+        <div className="root-container">{children}</div>
       </div>
     </main>
   );

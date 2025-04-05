@@ -60,6 +60,10 @@ input:-webkit-autofill:hover {
   --color-red: #ef3a4b;
 
   --color-blue-100: #0089f1;
+  --color-blue-200: #0072e5;
+  --color-blue-300: #0056d2;
+  --color-blue-400: #0041b5;
+  --color-blue-500: #0034a0;
 
   --color-light-100: #d6e0ff;
   --color-light-200: #eed1ac;
@@ -185,6 +189,9 @@ input:-webkit-autofill:hover {
 .root-container {
   @apply flex min-h-screen flex-1 flex-col bg-cover bg-top px-5 xs:px-10 md:px-16;
 }
+@utility form-title {
+  @apply text-3xl font-semibold md:text-4xl;
+}
 
 @utility page-title {
   @apply text-3xl font-semibold text-white xs:text-5xl;
@@ -203,10 +210,24 @@ input:-webkit-autofill:hover {
 }
 /* Form */
 /* border-none! font-bold!*/
-/* @utility form-input {
-  @apply min-h-10! w-full! bg-dark-300! text-white! placeholder:font-normal! placeholder:text-light-100! focus-visible:shadow-none! focus-visible:ring-0!;
-} */
+@utility white-form-input {
+  @apply min-h-10! w-full! border-sidebar-ring! placeholder:font-normal! placeholder:text-dark-600! focus-visible:shadow-none! focus-visible:ring-0!;
+}
 
 @utility form-btn {
   @apply inline-flex! min-h-8! w-[80%]! items-center! justify-center! self-center rounded-md! bg-btn! px-6! py-2! text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
+}
+
+/* Form stop */
+
+@utility toggle-input {
+  @apply flex h-14! w-36! items-center justify-center rounded-md! border border-sidebar-ring text-sm font-medium xs:w-52!;
+}
+
+@utility label-input {
+  @apply text-lg! font-semibold text-dark-100;
+}
+
+@utility equipment-form-btn {
+  @apply inline-flex! h-12! items-center! justify-center! self-center rounded-md! bg-blue-400! px-8! py-2! text-base! font-bold! text-white! hover:bg-blue-500!;
 }
