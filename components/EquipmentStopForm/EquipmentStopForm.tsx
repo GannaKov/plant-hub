@@ -268,8 +268,8 @@ const EquipmentStopForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" className="form-btn">
-            Увійти
+          <Button type="submit" className="equipment-form-btn">
+            Зареєструвати
           </Button>
         </form>
       </Form>

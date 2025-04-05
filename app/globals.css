@@ -60,6 +60,10 @@ input:-webkit-autofill:hover {
   --color-red: #ef3a4b;
 
   --color-blue-100: #0089f1;
+  --color-blue-200: #0072e5;
+  --color-blue-300: #0056d2;
+  --color-blue-400: #0041b5;
+  --color-blue-500: #0034a0;
 
   --color-light-100: #d6e0ff;
   --color-light-200: #eed1ac;
@@ -222,4 +226,8 @@ input:-webkit-autofill:hover {
 
 @utility label-input {
   @apply text-lg! font-semibold text-dark-100;
+}
+
+@utility equipment-form-btn {
+  @apply inline-flex! h-12! items-center! justify-center! self-center rounded-md! bg-blue-400! px-8! py-2! text-base! font-bold! text-white! hover:bg-blue-500!;
 }
