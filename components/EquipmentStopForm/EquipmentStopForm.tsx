@@ -64,8 +64,8 @@ const EquipmentStopForm = () => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
-    toast.success(`Супер`, {
-      description: `Ви успішно увійшли`,
+    toast.success(`Дякуємо`, {
+      description: `Ви успішно відправили форму`,
       action: {
         label: 'X',
         onClick: () => console.log('Toast dismissed'),
@@ -203,7 +203,7 @@ const EquipmentStopForm = () => {
                             mode="single"
                             selected={field.value}
                             onSelect={field.onChange}
-                            initialFocus
+                            // initialFocus
                           />
                         </PopoverContent>
                       </Popover>
