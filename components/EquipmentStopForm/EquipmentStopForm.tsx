@@ -72,11 +72,11 @@ const EquipmentStopForm = () => {
   };
   return (
     <div>
-      <h1 className="mb-5 text-center form-title">Зупинка обладнання</h1>
+      <h1 className="mb-8 text-center form-title">Зупинка обладнання</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full flex-col"
+          className="flex w-full flex-col gap-8"
         >
           {/* Inventory-number */}
           <FormField
@@ -84,7 +84,7 @@ const EquipmentStopForm = () => {
             name="inventory_number"
             render={({ field }) => (
               <FormItem className="mb-6 flex items-center gap-5">
-                <FormLabel className="flex-2/4 md:flex-1/4">
+                <FormLabel className="flex-2/4 label-input md:flex-1/4">
                   Інвентарний номер
                 </FormLabel>
                 <FormControl>
@@ -105,7 +105,7 @@ const EquipmentStopForm = () => {
             name="equipment_name"
             render={({ field }) => (
               <FormItem className="mb-6 flex items-center gap-5">
-                <FormLabel className="flex-2/4 md:flex-1/4">
+                <FormLabel className="flex-2/4 label-input md:flex-1/4">
                   Назва обладнання
                 </FormLabel>
                 <FormControl>
@@ -126,7 +126,9 @@ const EquipmentStopForm = () => {
             name="stop_type"
             render={({ field }) => (
               <FormItem className="mb-6">
-                <FormLabel className="mb-4">Тип зупинки обладнання</FormLabel>
+                <FormLabel className="mb-4 label-input">
+                  Тип зупинки обладнання
+                </FormLabel>
                 <FormControl>
                   <ToggleGroup
                     type="single"
@@ -167,61 +169,65 @@ const EquipmentStopForm = () => {
               </FormItem>
             )}
           />
-          <FormLabel className="mb-4">Час зупинки</FormLabel>
-          <FormLabel className="mb-4 text-dark-200">Початок зупинки</FormLabel>
-          <div className="mx-auto flex gap-40">
-            {/* Date */}
-            <FormField
-              control={form.control}
-              name="date"
-              render={({ field }) => (
-                <FormItem className="mb-6">
-                  <FormLabel>Дата</FormLabel>
-                  <FormControl>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="w-[200px] justify-between text-left font-normal"
-                        >
-                          {field.value
-                            ? field.value.toLocaleDateString()
-                            : 'Оберіть дату'}
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {/* Time */}
-            <FormField
-              control={form.control}
-              name="time"
-              render={({ field }) => (
-                <FormItem className="mb-6">
-                  <FormLabel>Час</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="time"
-                      {...field}
-                      className="w-[100px]! justify-between"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className="flex flex-col">
+            <FormLabel className="mb-4 label-input">Час зупинки</FormLabel>
+            <FormLabel className="mb-4 text-base text-dark-200">
+              Початок зупинки
+            </FormLabel>
+            <div className="mx-auto flex flex-col gap-4 sm:flex-row sm:gap-40">
+              {/* Date */}
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem className="mb-6">
+                    <FormLabel className="flex justify-center">Дата</FormLabel>
+                    <FormControl>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="outline"
+                            className="w-[200px] justify-between text-left font-normal"
+                          >
+                            {field.value
+                              ? field.value.toLocaleDateString()
+                              : 'Оберіть дату'}
+                            <CalendarIcon className="mr-2 h-4 w-4" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* Time */}
+              <FormField
+                control={form.control}
+                name="time"
+                render={({ field }) => (
+                  <FormItem className="mx-auto mb-6">
+                    <FormLabel className="flex justify-center">Час</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="time"
+                        {...field}
+                        className="w-[100px]! justify-between"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
 
           <Button type="submit" className="form-btn">

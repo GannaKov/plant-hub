@@ -219,3 +219,7 @@ input:-webkit-autofill:hover {
 @utility toggle-input {
   @apply flex h-14! w-36! items-center justify-center rounded-md! border border-sidebar-ring text-sm font-medium xs:w-52!;
 }
+
+@utility label-input {
+  @apply text-lg! font-semibold text-dark-100;
+}
