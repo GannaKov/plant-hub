@@ -185,6 +185,9 @@ input:-webkit-autofill:hover {
 .root-container {
   @apply flex min-h-screen flex-1 flex-col bg-cover bg-top px-5 xs:px-10 md:px-16;
 }
+@utility form-title {
+  @apply text-3xl font-semibold md:text-4xl;
+}
 
 @utility page-title {
   @apply text-3xl font-semibold text-white xs:text-5xl;
