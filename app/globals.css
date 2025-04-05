@@ -206,10 +206,16 @@ input:-webkit-autofill:hover {
 }
 /* Form */
 /* border-none! font-bold!*/
-/* @utility form-input {
-  @apply min-h-10! w-full! bg-dark-300! text-white! placeholder:font-normal! placeholder:text-light-100! focus-visible:shadow-none! focus-visible:ring-0!;
-} */
+@utility white-form-input {
+  @apply min-h-10! w-full! border-sidebar-ring! placeholder:font-normal! placeholder:text-dark-600! focus-visible:shadow-none! focus-visible:ring-0!;
+}
 
 @utility form-btn {
   @apply inline-flex! min-h-8! w-[80%]! items-center! justify-center! self-center rounded-md! bg-btn! px-6! py-2! text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
+}
+
+/* Form stop */
+
+@utility toggle-input {
+  @apply flex h-14! w-36! items-center justify-center rounded-md! border border-sidebar-ring text-sm font-medium xs:w-52!;
 }

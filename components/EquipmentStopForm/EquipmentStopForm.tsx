@@ -14,12 +14,15 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
 const formSchema = z.object({
-  inventory_number: z.string().min(5, {
-    message: 'Ім’я повинно містити щонайменше 5 символів.',
+  inventory_number: z.string(),
+  equipment_name: z.string(),
+  stop_type: z.enum(['a', 'b', 'c', 'd'], {
+    errorMap: () => ({ message: 'Оберіть тип зупинки.' }),
   }),
   password: z.string().min(6, {
     message: 'Пароль повинен містити щонайменше 6 символів.',
@@ -70,9 +73,82 @@ const EquipmentStopForm = () => {
                   Інвентарний номер
                 </FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input
+                    {...field}
+                    readOnly
+                    className="white-form-input bg-input"
+                  />
                 </FormControl>
 
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Equipment name */}
+          <FormField
+            control={form.control}
+            name="equipment_name"
+            render={({ field }) => (
+              <FormItem className="mb-6 flex items-center gap-5">
+                <FormLabel className="flex-2/4 md:flex-1/4">
+                  Назва обладнання
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    readOnly
+                    className="white-form-input bg-input"
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* Type Stop */}
+
+          <FormField
+            control={form.control}
+            name="stop_type"
+            render={({ field }) => (
+              <FormItem className="mb-6">
+                <FormLabel className="mb-4">Тип зупинки обладнання</FormLabel>
+                <FormControl>
+                  <ToggleGroup
+                    type="single"
+                    className="mx-auto flex flex-wrap items-center justify-center gap-6"
+                    defaultValue="failure-stop"
+                  >
+                    <div className="flex gap-6">
+                      <ToggleGroupItem
+                        value="planned-stop"
+                        className="toggle-input"
+                      >
+                        <div>Планова</div>
+                      </ToggleGroupItem>
+                      <ToggleGroupItem
+                        value="service-stop"
+                        className="toggle-input"
+                      >
+                        <div>Обслуговування</div>
+                      </ToggleGroupItem>
+                    </div>
+                    <div className="flex gap-6">
+                      <ToggleGroupItem
+                        value="readjustment-stop"
+                        className="toggle-input"
+                      >
+                        <div>Переналагодження</div>
+                      </ToggleGroupItem>
+                      <ToggleGroupItem
+                        value="failure-stop"
+                        className="toggle-input"
+                      >
+                        <div>Аварія</div>
+                      </ToggleGroupItem>
+                    </div>
+                  </ToggleGroup>
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
