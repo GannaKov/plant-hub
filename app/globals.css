@@ -11,7 +11,15 @@ input:-webkit-autofill:hover {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
   -webkit-text-fill-color: black !important;
 }
-
+/* removes
+  icon
+  from
+  time
+  input */
+.custom-time-input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -215,19 +223,19 @@ input:-webkit-autofill:hover {
 }
 
 @utility form-btn {
-  @apply inline-flex! min-h-8! w-[80%]! items-center! justify-center! self-center rounded-md! bg-btn! px-6! py-2! text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
+  @apply inline-flex! min-h-8! w-[80%]! items-center! justify-center! self-center bg-btn! px-6 py-2 text-base! font-bold! text-dark-100! hover:bg-btn-hover!;
 }
 
 /* Form stop */
 
 @utility toggle-input {
-  @apply flex h-14! w-36! items-center justify-center rounded-md! border border-sidebar-ring text-sm font-medium xs:w-52!;
+  @apply flex h-14! w-38! items-center justify-center border border-sidebar-ring text-sm! font-medium xs:w-52!;
 }
 
 @utility label-input {
-  @apply text-lg! font-semibold text-dark-100;
+  @apply font-semibold text-dark-100;
 }
 
 @utility equipment-form-btn {
-  @apply inline-flex! h-12! items-center! justify-center! self-center rounded-md! bg-blue-400! px-8! py-2! text-base! font-bold! text-white! hover:bg-blue-500!;
+  @apply inline-flex! h-12! items-center! justify-center! self-center bg-blue-400! px-8 py-2 font-bold! text-white! hover:bg-blue-500!;
 }
