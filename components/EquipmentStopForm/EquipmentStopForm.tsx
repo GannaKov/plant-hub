@@ -1,5 +1,7 @@
 'use client';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,7 +20,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 // import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Clock } from 'lucide-react';
+import { Calendar as CalendarIcon, Clock, SearchCheck } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import {
   Popover,
@@ -43,11 +45,36 @@ const formSchema = z.object({
 });
 
 const EquipmentStopForm = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  // if (!router.isReady) {
+  //   return <div>Loading...</div>}; // or a loading spinner
+  const equipment_id = searchParams.get('equipment_id');
+
+  const [equipmentData, setEquipmentData] = useState<{sku: string, name: string} | null>(null);
+  useEffect(() => {
+    if (equipment_id){
+    axios
+      .get('http://192.168.109.22:5000/api/get_equipment_details?equipment_id=' + equipment_id)
+      .then((response) => {
+        console.log(response)
+        if (response.data.length > 0) {
+          setEquipmentData(response.data[0]);
+        }
+
+      })
+      .catch((error) => {
+        console.error('Error fetching equipment data:', error);
+      });
+    }
+  }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      inventory_number: '',
-      equipment_name: '',
+      
+      inventory_number: equipmentData?.sku || '',
+      equipment_name: equipmentData?.name || '',
 
       stop_type: 'failure-stop',
       // Format the date to 'YYYY-MM-DD' format
@@ -57,6 +84,13 @@ const EquipmentStopForm = () => {
       next_steps: '',
     },
   });
+
+  useEffect(() => {
+    if (equipmentData) {
+      form.setValue('inventory_number', equipmentData.sku);
+      form.setValue('equipment_name', equipmentData.name);
+    }
+  }, [equipmentData, form]);
 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
     values: z.infer<typeof formSchema>
@@ -71,6 +105,7 @@ const EquipmentStopForm = () => {
         onClick: () => console.log('Toast dismissed'),
       },
     });
+    console.log('Form submitted:', values);
     form.reset(); // Reset the form after submission
   };
   return (
