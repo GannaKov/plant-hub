@@ -36,9 +36,9 @@ const formSchema = z.object({
       errorMap: () => ({ message: 'Оберіть тип зупинки.' }),
     }
   ),
-  date: z.date(),
-  time: z.string(),
-  description: z.string().min(1, { message: 'Опис обовʼязковий' }),
+  stop_date: z.date(),
+  stop_time: z.string(),
+  stop_description: z.string().min(1, { message: 'Опис обовʼязковий' }),
   next_steps: z.string().min(1, { message: 'Це поле обовʼязкове' }),
 });
 
@@ -51,9 +51,9 @@ const EquipmentStopForm = () => {
 
       stop_type: 'failure-stop',
       // Format the date to 'YYYY-MM-DD' format
-      date: new Date(), // Current date
-      time: new Date().toTimeString().slice(0, 5), // HH:MM
-      description: '',
+      stop_date: new Date(), // Current date
+      stop_time: new Date().toTimeString().slice(0, 5), // HH:MM
+      stop_description: '',
       next_steps: '',
     },
   });
@@ -181,7 +181,7 @@ const EquipmentStopForm = () => {
               {/* Date */}
               <FormField
                 control={form.control}
-                name="date"
+                name="stop_date"
                 render={({ field }) => (
                   <FormItem className="mb-6">
                     <FormLabel className="flex justify-center">Дата</FormLabel>
@@ -215,7 +215,7 @@ const EquipmentStopForm = () => {
               {/* Time */}
               <FormField
                 control={form.control}
-                name="time"
+                name="stop_time"
                 render={({ field }) => (
                   <FormItem className="mx-auto mb-6">
                     <FormLabel className="flex justify-center">Час</FormLabel>
@@ -238,7 +238,7 @@ const EquipmentStopForm = () => {
           {/* Description */}
           <FormField
             control={form.control}
-            name="description"
+            name="stop_description"
             render={({ field }) => (
               <FormItem className="mb-6">
                 <FormLabel>Опис</FormLabel>

@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 
 const formSchema = z.object({
-  username: z.string().min(5, {
+  login: z.string().min(5, {
     message: 'Ім’я повинно містити щонайменше 5 символів.',
   }),
   password: z.string().min(6, {
@@ -30,7 +30,7 @@ const AuthForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
+      login: '',
       password: '',
     },
   });
@@ -61,7 +61,7 @@ const AuthForm = () => {
         {/* Username */}
         <FormField
           control={form.control}
-          name="username"
+          name="login"
           render={({ field }) => (
             <FormItem className="mb-6">
               <FormLabel className="capitalize">Логін</FormLabel>
