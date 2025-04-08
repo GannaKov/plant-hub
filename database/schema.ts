@@ -22,6 +22,7 @@ export const ROLE_ENUM = pgEnum('role', ['USER', 'ADMIN']);
 // "db:migrate": "npx drizzle-kit migrate",
 export const users = pgTable('users', {
   id: uuid('id').notNull().primaryKey().defaultRandom().unique(),
+  fullName: varchar('full_name', { length: 255 }).notNull(),
   login: text('login').notNull().unique(),
   password: text('password').notNull(),
   //   status: STATUS_ENUM('status').default('PENDING'),
@@ -43,7 +44,7 @@ export const equipment = pgTable('equipment', {
   stopType: varchar('stop_type', { length: 255 }).notNull(),
   stopDescription: text('stop_description').notNull(),
   stop_Date: date('stop_date').notNull(),
-  stopTime: text('stop_time').notNull(),
+  stopTime: text('stop_time').notNull(), //or time()?
   nextSteps: text('next_steps').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });

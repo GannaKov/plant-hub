@@ -15,6 +15,13 @@
       "when": 1744140799776,
       "tag": "0001_silky_radioactive_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744144010318,
+      "tag": "0002_nosy_nekra",
+      "breakpoints": true
     }
   ]
 }
