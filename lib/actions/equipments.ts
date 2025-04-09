@@ -11,7 +11,6 @@ export const createEquipmentStop = async (params: NewEquipmentStop) => {
       stopDate: formatDate(params.stopDate), // formatting the date for the database
     });
     //   .returning();
-    console.log('result', result);
 
     return {
       success: true,

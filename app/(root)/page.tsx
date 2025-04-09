@@ -11,7 +11,7 @@ const Home = async () => {
     .from(equipment)
     .limit(10)
     .orderBy(desc(equipment.createdAt))) as Equipment[];
-  console.log('Equ', equipmentList);
+
   return (
     <div className="pt-10 pb-20">
       <h1 className="mb-8 items-center text-center form-title">

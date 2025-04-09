@@ -27,7 +27,7 @@ const Header = () => {
                 pathname === '/' ? 'text-light-200' : 'text-light-100'
               )}
             >
-              HOME
+              Обладнання
             </Link>
           </li>
           <li>
