@@ -49,11 +49,6 @@ export const equipment = pgTable('equipment', {
   equipmentType: varchar('equipment_type', { length: 255 }).notNull(),
   equipmentName: varchar('equipment_name', { length: 255 }).notNull(),
   description: text('description').notNull(),
-  // stopType: STOP_TYPE_ENUM('stop_type').notNull(),
-  // stopDescription: text('stop_description').notNull(),
-  // stop_Date: date('stop_date').notNull(),
-  // stopTime: text('stop_time').notNull(), //or time()?
-  // nextSteps: text('next_steps').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
 });
 

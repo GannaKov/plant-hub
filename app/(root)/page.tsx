@@ -1,5 +1,5 @@
 import React from 'react';
-import EquipmentStopForm from '@/components/EquipmentStopForm/EquipmentStopForm';
+
 import { db } from '@/database/drizzle';
 import { equipment } from '@/database/schema';
 import { desc } from 'drizzle-orm';
@@ -13,7 +13,7 @@ const Home = async () => {
     .orderBy(desc(equipment.createdAt))) as Equipment[];
   console.log('Equ', equipmentList);
   return (
-    <div className="py-10 pb-20">
+    <div className="pt-10 pb-20">
       <h1 className="mb-8 items-center text-center form-title">
         {' '}
         Список обладнання

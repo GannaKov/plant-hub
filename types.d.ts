@@ -10,7 +10,7 @@ interface Equipment {
   equipmentType: string;
   equipmentName: string;
   description: string;
-  createdAt: Date;
+  createdAt: Date | null;
 }
 
 interface EquipmentStop {

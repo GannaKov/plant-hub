@@ -1,23 +1,23 @@
 import React from 'react';
 import { db } from '@/database/drizzle';
 import { eq } from 'drizzle-orm';
-import { redirect } from 'next/navigation';
+
 import { notFound } from 'next/navigation'; // Check it
 import { equipment, equipmentStops } from '@/database/schema';
-import { Button } from '@/components/ui/button';
+
 import EquipmentStopsToggle from '@/components/EquipmentStopsToggle';
+import Link from 'next/link';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
-  console.log('id', id);
+
   const [equipmentDetails] = await db
     .select()
     .from(equipment)
     .where(eq(equipment.id, id))
     .limit(1);
 
-  if (!equipmentDetails) return notFound();
-  console.log('equipmentDetails', equipmentDetails);
+  if (!equipmentDetails) return notFound(); // redo it
 
   const stops = await db
     .select()
@@ -26,9 +26,17 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   const hasActiveStop = stops.some((stop) => stop.endStopDate === null);
 
-  console.log('stops', stops);
   return (
     <div className="py-10 pb-20">
+      {hasActiveStop ? (
+        <Link href={`/equipment/${id}/end-stop`} className="bg-chart-2">
+          Повідомити про кінець зупинки
+        </Link>
+      ) : (
+        <Link href={`/equipment/${id}/add-stop`} className="bg-destructive">
+          Повідомити про зупинку
+        </Link>
+      )}
       <h1 className="mb-8 flex items-center justify-center gap-3 text-center form-title">
         {equipmentDetails.equipmentName}
         {hasActiveStop ? (
@@ -48,27 +56,6 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <p className="">{equipmentDetails.description}</p>
       </div>
       <EquipmentStopsToggle stops={stops} />
-      {/* <Button>Показати зупинки?</Button>
-      {stops.length > 0 &&
-        stops.map((stop) => (
-          <div key={stop.id} className="mb-4 flex flex-col">
-            <span className="font-semibold">stopType:</span>
-            <p className="">{stop.stopType}</p>
-
-            <span className="font-semibold">stopDate:</span>
-            <p className="">{stop.stopDate}</p>
-            <span className="font-semibold">stopTime:</span>
-            <p className="">{stop.stopTime}</p>
-            <span className="font-semibold">stopDescription:</span>
-            <p className="">{stop.stopDescription}</p>
-            <span className="font-semibold">nextSteps:</span>
-            <p className="">{stop.nextSteps}</p>
-            <span className="font-semibold">endStopDate:</span>
-            <p className="">{stop.endStopDate}</p>
-            <span className="font-semibold">endStopTime:</span>
-            <p className="">{stop.endStopTime}</p>
-          </div>
-        ))} */}
     </div>
   );
 };

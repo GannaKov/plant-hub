@@ -42,12 +42,16 @@ const formSchema = z.object({
   next_steps: z.string().min(1, { message: 'Це поле обовʼязкове' }),
 });
 
-const EquipmentStopForm = () => {
+const EquipmentStopForm = ({
+  equipmentDetails,
+}: {
+  equipmentDetails: Equipment;
+}) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      inventory_number: '',
-      equipment_name: '',
+      inventory_number: equipmentDetails.inventoryNumber,
+      equipment_name: equipmentDetails.equipmentName,
 
       stop_type: 'failure-stop',
       // Format the date to 'YYYY-MM-DD' format
