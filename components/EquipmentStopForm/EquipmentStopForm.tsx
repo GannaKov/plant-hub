@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-
+import { useRouter } from 'next/navigation';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -26,6 +26,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
+import { createEquipmentStop } from '@/lib/actions/equipments';
 
 const formSchema = z.object({
   inventory_number: z.string(),
@@ -42,12 +43,17 @@ const formSchema = z.object({
   next_steps: z.string().min(1, { message: 'Це поле обовʼязкове' }),
 });
 
-const EquipmentStopForm = () => {
+const EquipmentStopForm = ({
+  equipmentDetails,
+}: {
+  equipmentDetails: Equipment;
+}) => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      inventory_number: '',
-      equipment_name: '',
+      inventory_number: equipmentDetails.inventoryNumber,
+      equipment_name: equipmentDetails.equipmentName,
 
       stop_type: 'failure-stop',
       // Format the date to 'YYYY-MM-DD' format
@@ -58,20 +64,42 @@ const EquipmentStopForm = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (
     values: z.infer<typeof formSchema>
   ) => {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
-    toast.success(`Дякуємо`, {
-      description: `Ви успішно відправили форму`,
-      action: {
-        label: 'X',
-        onClick: () => console.log('Toast dismissed'),
-      },
+    const dataToInsert = {
+      equipmentId: equipmentDetails.id,
+      stopType: values.stop_type,
+      stopDescription: values.stop_description,
+      stopDate: values.stop_date,
+      stopTime: values.stop_time,
+      nextSteps: values.next_steps,
+    };
+    const result = await createEquipmentStop({
+      ...dataToInsert,
     });
-    form.reset(); // Reset the form after submission
+    // Do something with the form values.
+    // This will be type-safe and validated.
+    // console.log(values);
+    if (result.success) {
+      toast.success(`Дякуємо`, {
+        description: `Ви успішно відправили форму`,
+        action: {
+          label: 'X',
+          onClick: () => console.log('Toast dismissed'),
+        },
+      });
+      router.push(`/equipment/${equipmentDetails.id}`);
+      //form.reset(); // Reset the form after submission
+    } else {
+      toast.success(`Ох ні`, {
+        description: `Щось трапилось, спробуйте ще раз`,
+        action: {
+          label: 'X',
+          onClick: () => console.log('Toast dismissed'),
+        },
+      });
+    }
   };
   return (
     <div>

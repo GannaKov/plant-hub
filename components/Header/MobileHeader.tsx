@@ -19,7 +19,7 @@ const MobileHeader = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="p-6 uppercase">
           <DropdownMenuItem asChild>
-            <a href="/">Головна</a>
+            <a href="/">Обладнання</a>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
             <a href="//other1">Other1</a>
