@@ -26,12 +26,11 @@ export default function EquipmentStopsToggle({ stops }: { stops: Stop[] }) {
       {showStops &&
         stops.map((stop) => (
           <div key={stop.id} className="flex flex-col">
-            <span className="font-semibold">stopType:</span>
-
             <span className="font-semibold">stopDate:</span>
             <p>{stop.stopDate}</p>
             <span className="font-semibold">stopTime:</span>
             <p>{stop.stopTime}</p>
+            <span className="font-semibold">stopType:</span>
             <p>{stop.stopType}</p>
 
             <span className="font-semibold">stopDescription:</span>
