@@ -52,13 +52,13 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         )}
       </h1>
       <div className="mb-4 flex flex-col text-lg">
-        <span className="font-semibold">inventoryNumber:</span>
+        <span className="font-semibold">Інвентарний номер:</span>
         <p className="">{equipmentDetails.inventoryNumber}</p>
-        <span className="font-semibold">equipmentName:</span>
+        <span className="font-semibold">Назва обладнання:</span>
         <p className="">{equipmentDetails.equipmentName}</p>
-        <span className="font-semibold">equipmentType:</span>
+        <span className="font-semibold">Тип обладнання:</span>
         <p className="">{equipmentDetails.equipmentType}</p>
-        <span className="font-semibold">description:</span>
+        <span className="font-semibold">Опис:</span>
         <p className="">{equipmentDetails.description}</p>
       </div>
       <EquipmentStopsToggle stops={stops} />
