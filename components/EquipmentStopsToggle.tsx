@@ -26,11 +26,14 @@ export default function EquipmentStopsToggle({ stops }: { stops: Stop[] }) {
       {showStops ? (
         stops.length > 0 ? (
           stops.map((stop) => (
-            <div key={stop.id} className="flex flex-col">
-              <span className="font-semibold">stopDate:</span>
-              <p>{stop.stopDate}</p>
-              <span className="font-semibold">stopTime:</span>
-              <p>{stop.stopTime}</p>
+            <div key={stop.id} className="mb-2 flex flex-col">
+              <div className="flex gap-4">
+                <span className="font-semibold text-red-600">stopDate:</span>
+                <p>{stop.stopDate}</p>
+                <span className="font-semibold text-red-600">stopTime:</span>
+                <p>{stop.stopTime}</p>
+              </div>
+
               <span className="font-semibold">stopType:</span>
               <p>{stop.stopType}</p>
 

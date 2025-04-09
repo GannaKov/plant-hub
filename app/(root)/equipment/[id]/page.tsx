@@ -29,11 +29,17 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className="py-10 pb-20">
       {hasActiveStop ? (
-        <Link href={`/equipment/${id}/end-stop`} className="bg-chart-2">
+        <Link
+          href={`/equipment/${id}/end-stop`}
+          className="h-10 rounded-md bg-chart-2 px-6 py-2 text-base font-medium text-white shadow-sm transition-all hover:bg-chart-2/90"
+        >
           Повідомити про кінець зупинки
         </Link>
       ) : (
-        <Link href={`/equipment/${id}/add-stop`} className="bg-destructive">
+        <Link
+          href={`/equipment/${id}/add-stop`}
+          className="h-10 rounded-md bg-destructive px-6 py-2 text-base font-medium text-white shadow-sm transition-all hover:bg-destructive/90"
+        >
           Повідомити про зупинку
         </Link>
       )}

@@ -29,6 +29,14 @@ interface EquipmentStop {
   nextSteps: string;
   createdAt: Date;
 }
+interface NewEquipmentStop {
+  equipmentId: string;
+  stopType: StopType;
+  stopDescription: string;
+  stopDate: Date;
+  stopTime: string;
+  nextSteps: string;
+}
 
 interface EquipmentWithStops extends Equipment {
   stops: EquipmentStop[];
