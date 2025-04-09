@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import { notFound } from 'next/navigation'; // Check it
 import { equipment, equipmentStops } from '@/database/schema';
 import { Button } from '@/components/ui/button';
+import EquipmentStopsToggle from '@/components/EquipmentStopsToggle';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
@@ -46,7 +47,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <span className="font-semibold">description:</span>
         <p className="">{equipmentDetails.description}</p>
       </div>
-      <Button>Показати зупинки?</Button>
+      <EquipmentStopsToggle stops={stops} />
+      {/* <Button>Показати зупинки?</Button>
       {stops.length > 0 &&
         stops.map((stop) => (
           <div key={stop.id} className="mb-4 flex flex-col">
@@ -66,7 +68,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
             <span className="font-semibold">endStopTime:</span>
             <p className="">{stop.endStopTime}</p>
           </div>
-        ))}
+        ))} */}
     </div>
   );
 };
