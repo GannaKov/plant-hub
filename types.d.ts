@@ -38,6 +38,15 @@ interface NewEquipmentStop {
   nextSteps: string;
 }
 
+interface ActiveStopFormData {
+  stopDate: string;
+  stopTime: string;
+  stopType:
+    | 'planned-stop'
+    | 'service-stop'
+    | 'readjustment-stop'
+    | 'failure-stop';
+}
 interface EquipmentWithStops extends Equipment {
   stops: EquipmentStop[];
 }

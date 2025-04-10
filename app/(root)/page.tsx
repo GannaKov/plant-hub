@@ -18,9 +18,9 @@ const Home = async () => {
         {' '}
         Список обладнання
       </h1>
-      <div className="mb-4 flex text-lg font-semibold">
-        <p className="flex-1/5 text-center">Інвентарний номер</p>
-        <p className="flex-2/5">Назва обладнання</p>
+      <div className="mb-4 flex gap-2 text-lg font-semibold xs:gap-4 md:gap-0">
+        <p className="text-center md:flex-1/5">Інвентарний номер</p>
+        <p className="text-center md:flex-2/5 md:text-left">Назва обладнання</p>
       </div>
       <ul className="mb-10 flex flex-col gap-5">
         {equipmentList.map((item) => (
