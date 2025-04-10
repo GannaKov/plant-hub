@@ -45,8 +45,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
           Повідомити про зупинку
         </Link>
       )}
-      <h1 className="mb-8 flex items-center justify-center gap-3 text-center form-title">
-        {equipmentDetails.equipmentName}
+      <h1 className="mb-8 flex flex-col items-center justify-center gap-2 text-center form-title xs:flex-row xs:gap-3">
+        <span>{equipmentDetails.equipmentName}</span>
         {hasActiveStop ? (
           <span className="inline-block h-4 w-4 rounded-full bg-red-600" />
         ) : (
