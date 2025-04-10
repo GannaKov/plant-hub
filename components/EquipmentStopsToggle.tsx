@@ -26,25 +26,57 @@ export default function EquipmentStopsToggle({ stops }: { stops: Stop[] }) {
       {showStops ? (
         stops.length > 0 ? (
           stops.map((stop) => (
-            <div key={stop.id} className="mb-2 flex flex-col">
-              <div className="flex gap-4">
-                <span className="font-semibold text-red-600">stopDate:</span>
-                <p>{stop.stopDate}</p>
-                <span className="font-semibold text-red-600">stopTime:</span>
-                <p>{stop.stopTime}</p>
+            <div key={stop.id} className="mb-2 flex flex-col gap-4">
+              {/* --------------------- */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col gap-4 xs:flex-row xs:gap-12">
+                  <div className="flex gap-4">
+                    <span className="font-semibold text-red-600">
+                      Дата зупинки:
+                    </span>
+                    <p>{stop.stopDate}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    {' '}
+                    <span className="font-semibold text-red-600">
+                      Час зупинки:
+                    </span>
+                    <p>{stop.stopTime}</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <span className="font-semibold">Тип зупинки:</span>
+                <p>{stop.stopType}</p>
               </div>
 
-              <span className="font-semibold">stopType:</span>
-              <p>{stop.stopType}</p>
+              <div>
+                <span className="font-semibold">Опис зупинки:</span>
+                <p>{stop.stopDescription}</p>
+              </div>
 
-              <span className="font-semibold">stopDescription:</span>
-              <p>{stop.stopDescription}</p>
-              <span className="font-semibold">nextSteps:</span>
-              <p>{stop.nextSteps}</p>
-              <span className="font-semibold">endStopDate:</span>
-              <p>{stop.endStopDate || '—'}</p>
-              <span className="font-semibold">endStopTime:</span>
-              <p>{stop.endStopTime || '—'}</p>
+              <div>
+                <span className="font-semibold">Наступні кроки:</span>
+                <p>{stop.nextSteps}</p>
+              </div>
+              {/* --------------------- */}
+              <div className="flex flex-col items-center gap-4">
+                <div className="flex flex-col gap-4 xs:flex-row xs:gap-12">
+                  <div className="flex gap-4">
+                    <span className="font-semibold text-green-700">
+                      Дата кінця зупинки:
+                    </span>
+                    <p>{stop.endStopDate || '—'}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="font-semibold text-green-700">
+                      Час кінця зупинки:
+                    </span>
+                    <p>{stop.endStopTime || '—'}</p>
+                  </div>
+                </div>
+              </div>
+              {/* --------------------- */}
             </div>
           ))
         ) : (

@@ -8,13 +8,11 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  //   FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import { Calendar as CalendarIcon, Clock } from 'lucide-react';
@@ -24,42 +22,33 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Textarea } from '@/components/ui/textarea';
-import { createEquipmentStop } from '@/lib/actions/equipments';
 
+import { updateEquipmentStop } from '@/lib/actions/equipments';
+// !!! Add later check if endDate is after start!!!!!
 const formSchema = z.object({
   inventory_number: z.string(),
   equipment_name: z.string(),
-  stop_type: z.enum(
-    ['planned-stop', 'service-stop', 'readjustment-stop', 'failure-stop'],
-    {
-      errorMap: () => ({ message: 'Оберіть тип зупинки.' }),
-    }
-  ),
-  stop_date: z.date(),
-  stop_time: z.string(),
-  stop_description: z.string().min(1, { message: 'Опис обовʼязковий' }),
-  next_steps: z.string().min(1, { message: 'Це поле обовʼязкове' }),
+  end_date: z.date(),
+  end_time: z.string(),
 });
 
-const EquipmentStopForm = ({
+const EquipmentEndStopForm = ({
   equipmentDetails,
+  activeStop,
 }: {
   equipmentDetails: Equipment;
+  activeStop: ActiveStopFormData;
 }) => {
   const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       inventory_number: equipmentDetails.inventoryNumber,
       equipment_name: equipmentDetails.equipmentName,
-
-      stop_type: 'failure-stop',
       // Format the date to 'YYYY-MM-DD' format
-      stop_date: new Date(), // Current date
-      stop_time: new Date().toTimeString().slice(0, 5), // HH:MM
-      stop_description: '',
-      next_steps: '',
+      end_date: new Date(), // Current date
+      end_time: new Date().toTimeString().slice(0, 5), // HH:MM
     },
   });
 
@@ -67,19 +56,14 @@ const EquipmentStopForm = ({
     values: z.infer<typeof formSchema>
   ) => {
     const dataToInsert = {
-      equipmentId: equipmentDetails.id,
-      stopType: values.stop_type,
-      stopDescription: values.stop_description,
-      stopDate: values.stop_date,
-      stopTime: values.stop_time,
-      nextSteps: values.next_steps,
+      endDate: values.end_date,
+      endTime: values.end_time,
     };
-    const result = await createEquipmentStop({
+    const result = await updateEquipmentStop(activeStop.stopId, {
       ...dataToInsert,
     });
-    // Do something with the form values.
-    // This will be type-safe and validated.
-    // console.log(values);
+    console.log('result', result);
+
     if (result.success) {
       toast.success(`Дякуємо`, {
         description: `Ви успішно відправили форму`,
@@ -89,7 +73,6 @@ const EquipmentStopForm = ({
         },
       });
       router.push(`/equipment/${equipmentDetails.id}`);
-      //form.reset(); // Reset the form after submission
     } else {
       toast.success(`Ох ні`, {
         description: `Щось трапилось, спробуйте ще раз`,
@@ -150,65 +133,36 @@ const EquipmentStopForm = ({
               </FormItem>
             )}
           />
-          {/* Type Stop */}
-          <FormField
-            control={form.control}
-            name="stop_type"
-            render={({ field }) => (
-              <FormItem className="mb-6">
-                <FormLabel className="mb-4 label-input">
-                  Тип зупинки обладнання
-                </FormLabel>
-                <FormControl>
-                  <ToggleGroup
-                    type="single"
-                    className="mx-auto flex flex-wrap items-center justify-center gap-6"
-                    defaultValue="failure-stop"
-                  >
-                    <div className="flex gap-6">
-                      <ToggleGroupItem
-                        value="planned-stop"
-                        className="toggle-input"
-                      >
-                        <div>Планова</div>
-                      </ToggleGroupItem>
-                      <ToggleGroupItem
-                        value="service-stop"
-                        className="toggle-input"
-                      >
-                        <div>Обслуговування</div>
-                      </ToggleGroupItem>
-                    </div>
-                    <div className="flex gap-6">
-                      <ToggleGroupItem
-                        value="readjustment-stop"
-                        className="toggle-input"
-                      >
-                        <div>Переналагодження</div>
-                      </ToggleGroupItem>
-                      <ToggleGroupItem
-                        value="failure-stop"
-                        className="toggle-input"
-                      >
-                        <div>Аварія</div>
-                      </ToggleGroupItem>
-                    </div>
-                  </ToggleGroup>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {/* --------------------- */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col gap-4 xs:flex-row xs:gap-12">
+              <div className="flex gap-4">
+                <span className="font-semibold text-red-600">
+                  Дата зупинки:
+                </span>
+                <p>{activeStop.stopDate}</p>
+              </div>
+
+              <div className="flex gap-4">
+                <span className="font-semibold text-red-600">Час зупинки:</span>
+                <p>{activeStop.stopTime}</p>
+              </div>
+            </div>
+            <span className="font-semibold text-red-600">Тип зупинки:</span>
+            <p>{activeStop.stopType}</p>
+          </div>
+
+          {/* --------------------- */}
           <div className="flex flex-col">
-            <FormLabel className="mb-4 label-input">Час зупинки</FormLabel>
-            <FormLabel className="mb-4 text-base text-dark-200">
-              Початок зупинки
+            <FormLabel className="mb-4 justify-center text-2xl label-input font-semibold">
+              Завершення зупинки
             </FormLabel>
+
             <div className="mx-auto flex flex-col gap-4 sm:flex-row sm:gap-40">
               {/* Date */}
               <FormField
                 control={form.control}
-                name="stop_date"
+                name="end_date"
                 render={({ field }) => (
                   <FormItem className="mb-6">
                     <FormLabel className="flex justify-center">Дата</FormLabel>
@@ -242,7 +196,7 @@ const EquipmentStopForm = ({
               {/* Time */}
               <FormField
                 control={form.control}
-                name="stop_time"
+                name="end_time"
                 render={({ field }) => (
                   <FormItem className="mx-auto mb-6">
                     <FormLabel className="flex justify-center">Час</FormLabel>
@@ -263,7 +217,7 @@ const EquipmentStopForm = ({
             </div>
           </div>
           {/* Description */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="stop_description"
             render={({ field }) => (
@@ -279,25 +233,7 @@ const EquipmentStopForm = ({
                 <FormMessage />
               </FormItem>
             )}
-          />
-          {/* Next Steps */}
-          <FormField
-            control={form.control}
-            name="next_steps"
-            render={({ field }) => (
-              <FormItem className="mb-6">
-                <FormLabel>Наступні кроки</FormLabel>
-                <FormControl>
-                  <Textarea
-                    {...field}
-                    placeholder="Що потрібно зробити далі"
-                    className="h-48 border-sidebar-ring!"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          /> */}
           <Button type="submit" className="equipment-form-btn">
             Зареєструвати
           </Button>
@@ -307,4 +243,4 @@ const EquipmentStopForm = ({
   );
 };
 
-export default EquipmentStopForm;
+export default EquipmentEndStopForm;
