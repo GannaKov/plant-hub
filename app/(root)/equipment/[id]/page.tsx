@@ -31,14 +31,14 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       {hasActiveStop ? (
         <Link
           href={`/equipment/${id}/end-stop`}
-          className="h-10 rounded-md bg-chart-2 px-6 py-2 text-base font-medium text-white shadow-sm transition-all hover:bg-chart-2/90"
+          className="mx-auto mb-8 flex w-60 items-center justify-center rounded-md bg-chart-2 px-6 py-2 text-center text-base font-medium text-white shadow-sm transition-all hover:bg-chart-2/90 xs:mx-0 xs:w-80"
         >
           Повідомити про кінець зупинки
         </Link>
       ) : (
         <Link
           href={`/equipment/${id}/add-stop`}
-          className="h-10 rounded-md bg-destructive px-6 py-2 text-base font-medium text-white shadow-sm transition-all hover:bg-destructive/90"
+          className="mx-auto mb-8 flex h-10 w-60 items-center justify-center rounded-md bg-destructive px-6 py-2 text-center text-base font-medium text-white shadow-sm transition-all hover:bg-destructive/90 xs:mx-0 xs:w-80"
         >
           Повідомити про зупинку
         </Link>
