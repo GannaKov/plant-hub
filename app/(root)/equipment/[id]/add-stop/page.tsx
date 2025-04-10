@@ -4,6 +4,7 @@ import { db } from '@/database/drizzle';
 import { eq } from 'drizzle-orm';
 import { notFound } from 'next/navigation'; // Check it
 import { equipment } from '@/database/schema';
+import GoToPageButton from '@/components/GoToPageButton';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -17,6 +18,10 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!equipmentDetails) return notFound(); // redo it
   return (
     <div className="pt-10 pb-20">
+      <GoToPageButton
+        destination={`/equipment/${equipmentDetails.id}`}
+        text={`До ${equipmentDetails.inventoryNumber}`}
+      />
       <EquipmentStopForm equipmentDetails={equipmentDetails} />
     </div>
   );

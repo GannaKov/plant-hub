@@ -7,6 +7,7 @@ import { equipment, equipmentStops } from '@/database/schema';
 
 import EquipmentStopsToggle from '@/components/EquipmentStopsToggle';
 import Link from 'next/link';
+import GoToPageButton from '@/components/GoToPageButton';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
@@ -28,6 +29,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
 
   return (
     <div className="py-10 pb-20">
+      <GoToPageButton destination="/" text="До списка обладнання" />
       {hasActiveStop ? (
         <Link
           href={`/equipment/${id}/end-stop`}

@@ -5,6 +5,7 @@ import { eq, and, isNull } from 'drizzle-orm';
 import { notFound } from 'next/navigation'; // Check it
 import { equipment, equipmentStops } from '@/database/schema';
 import EquipmentEndStopForm from '@/components/EquipmentEndStopForm/EquipmentEndStopForm';
+import GoToPageButton from '@/components/GoToPageButton';
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -36,6 +37,10 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!equipmentDetails || !activeStop) return notFound(); // redo it
   return (
     <div className="pt-10 pb-20">
+      <GoToPageButton
+        destination={`/equipment/${equipmentDetails.id}`}
+        text={`До ${equipmentDetails.inventoryNumber}`}
+      />
       <EquipmentEndStopForm
         equipmentDetails={equipmentDetails}
         activeStop={activeStop}
