@@ -21,6 +21,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       stopDate: equipmentStops.stopDate,
       stopTime: equipmentStops.stopTime,
       stopType: equipmentStops.stopType,
+      stopId: equipmentStops.id,
     })
     .from(equipmentStops)
     .where(

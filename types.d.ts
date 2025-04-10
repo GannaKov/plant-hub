@@ -39,6 +39,7 @@ interface NewEquipmentStop {
 }
 
 interface ActiveStopFormData {
+  stopId: string;
   stopDate: string;
   stopTime: string;
   stopType:

@@ -26,7 +26,10 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Textarea } from '@/components/ui/textarea';
-import { createEquipmentStop } from '@/lib/actions/equipments';
+import {
+  createEquipmentStop,
+  updateEquipmentStop,
+} from '@/lib/actions/equipments';
 
 const formSchema = z.object({
   inventory_number: z.string(),
@@ -52,7 +55,6 @@ const EquipmentEndStopForm = ({
       // Format the date to 'YYYY-MM-DD' format
       end_date: new Date(), // Current date
       end_time: new Date().toTimeString().slice(0, 5), // HH:MM
-      //   end_description: '',
     },
   });
 
@@ -61,18 +63,15 @@ const EquipmentEndStopForm = ({
   ) => {
     console.log('hier');
     const dataToInsert = {
-      equipmentId: equipmentDetails.id,
       //   endDescription: values.end_description,
       endDate: values.end_date,
       endTime: values.end_time,
     };
+    const result = await updateEquipmentStop(activeStop.stopId, {
+      ...dataToInsert,
+    });
     console.log('dataToInsert', dataToInsert);
-    // const result = await createEquipmentStop({
-    //   ...dataToInsert,
-    // });
-    // Do something with the form values.
-    // This will be type-safe and validated.
-    // console.log(values);
+
     // if (result.success) {
     //   toast.success(`Дякуємо`, {
     //     description: `Ви успішно відправили форму`,
