@@ -34,8 +34,6 @@ export const updateEquipmentStop = async (
 ) => {
   const formatEndDate = await formatDate(values.endDate); // formatting the date for the database
 
-  console.log('values', values);
-  console.log('activeStopId', activeStopId);
   try {
     const result = await db
       .update(equipmentStops)
@@ -44,19 +42,18 @@ export const updateEquipmentStop = async (
         endStopTime: values.endTime,
       })
       .where(eq(equipmentStops.id, activeStopId)); // update the stop with the given id
-    console.log('result', result);
 
-    // if (result.rowsAffected > 0) {
-    //   return {
-    //     success: true,
-    //     message: 'Equipment stop updated successfully',
-    //   };
-    // } else {
-    //   return {
-    //     success: false,
-    //     message: 'No matching equipment stop found',
-    //   };
-    // }
+    if (result.rowCount > 0) {
+      return {
+        success: true,
+        message: 'Equipment stop updated successfully',
+      };
+    } else {
+      return {
+        success: false,
+        message: 'No matching equipment stop found',
+      };
+    }
   } catch (error) {
     console.log(error);
 

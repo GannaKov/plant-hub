@@ -8,16 +8,13 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
-  //   FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-// import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Clock } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -25,12 +22,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { Textarea } from '@/components/ui/textarea';
-import {
-  createEquipmentStop,
-  updateEquipmentStop,
-} from '@/lib/actions/equipments';
 
+import { updateEquipmentStop } from '@/lib/actions/equipments';
+// !!! Add later check if endDate is after start!!!!!
 const formSchema = z.object({
   inventory_number: z.string(),
   equipment_name: z.string(),
@@ -61,36 +55,33 @@ const EquipmentEndStopForm = ({
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (
     values: z.infer<typeof formSchema>
   ) => {
-    console.log('hier');
     const dataToInsert = {
-      //   endDescription: values.end_description,
       endDate: values.end_date,
       endTime: values.end_time,
     };
     const result = await updateEquipmentStop(activeStop.stopId, {
       ...dataToInsert,
     });
-    console.log('dataToInsert', dataToInsert);
+    console.log('result', result);
 
-    // if (result.success) {
-    //   toast.success(`Дякуємо`, {
-    //     description: `Ви успішно відправили форму`,
-    //     action: {
-    //       label: 'X',
-    //       onClick: () => console.log('Toast dismissed'),
-    //     },
-    //   });
-    //   router.push(`/equipment/${equipmentDetails.id}`);
-    //   //form.reset(); // Reset the form after submission
-    // } else {
-    //   toast.success(`Ох ні`, {
-    //     description: `Щось трапилось, спробуйте ще раз`,
-    //     action: {
-    //       label: 'X',
-    //       onClick: () => console.log('Toast dismissed'),
-    //     },
-    //   });
-    // }
+    if (result.success) {
+      toast.success(`Дякуємо`, {
+        description: `Ви успішно відправили форму`,
+        action: {
+          label: 'X',
+          onClick: () => console.log('Toast dismissed'),
+        },
+      });
+      router.push(`/equipment/${equipmentDetails.id}`);
+    } else {
+      toast.success(`Ох ні`, {
+        description: `Щось трапилось, спробуйте ще раз`,
+        action: {
+          label: 'X',
+          onClick: () => console.log('Toast dismissed'),
+        },
+      });
+    }
   };
   return (
     <div>
@@ -163,8 +154,8 @@ const EquipmentEndStopForm = ({
 
           {/* --------------------- */}
           <div className="flex flex-col">
-            <FormLabel className="mb-4 justify-center label-input">
-              Закінчення зупинки
+            <FormLabel className="mb-4 justify-center text-2xl label-input font-semibold">
+              Завершення зупинки
             </FormLabel>
 
             <div className="mx-auto flex flex-col gap-4 sm:flex-row sm:gap-40">

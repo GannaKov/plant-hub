@@ -48,6 +48,7 @@ interface ActiveStopFormData {
     | 'readjustment-stop'
     | 'failure-stop';
 }
+
 interface EquipmentWithStops extends Equipment {
   stops: EquipmentStop[];
 }
