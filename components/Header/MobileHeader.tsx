@@ -22,10 +22,10 @@ const MobileHeader = () => {
             <a href="/">Обладнання</a>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <a href="//other1">Other1</a>
+            <a href="/other1">Other1</a>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <a href="/c/other2">Other2</a>
+            <a href="/other2">Other2</a>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
