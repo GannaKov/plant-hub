@@ -2,9 +2,12 @@
 import React, { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 import { z } from 'zod';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
+import { signInWithCredentials } from '@/lib/actions/auth';
+import { useRouter } from 'next/navigation';
 import {
   Form,
   FormControl,
@@ -36,21 +39,31 @@ const AuthForm = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = (
+  const router = useRouter();
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (
     values: z.infer<typeof formSchema>
   ) => {
     // Do something with the form values.
+    const result = await signInWithCredentials(values);
     // ✅ This will be type-safe and validated.
-    console.log(values);
-    toast.success(`Супер`, {
-      description: `Ви успішно увійшли`,
-      action: {
-        label: 'X',
-        onClick: () => console.log('Toast dismissed'),
-      },
-    });
-    form.reset(); // Reset the form after submission
+    if (result.success) {
+      toast.success(`Супер`, {
+        description: `Ви успішно увійшли`,
+        action: {
+          label: 'X',
+          onClick: () => console.log('Toast dismissed'),
+        },
+      });
+      router.push('/');
+    } else {
+      toast.warning(`Щось трапилось`, {
+        description: result.error ?? 'Помилка входу',
+        action: {
+          label: 'X',
+          onClick: () => console.log('Toast dismissed'),
+        },
+      });
+    }
   };
   return (
     <Form {...form}>
@@ -66,7 +79,7 @@ const AuthForm = () => {
             <FormItem className="mb-6">
               <FormLabel className="capitalize">Логін</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} className="h-14" />
               </FormControl>
               <FormDescription>Введіть ваш логін.</FormDescription>
               <FormMessage />
@@ -83,6 +96,7 @@ const AuthForm = () => {
               <div className="relative">
                 <FormControl>
                   <Input
+                    className="h-14"
                     type={showPassword ? 'text' : 'password'}
                     {...field}
                     style={{

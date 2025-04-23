@@ -2,6 +2,7 @@ interface AuthCredentials {
   fullName: string;
   login: string;
   password: string;
+  role: 'USER' | 'ADMIN';
 }
 
 interface Equipment {

@@ -1,13 +1,19 @@
 'use client';
 import React from 'react';
+
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 // import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import MobileHeader from './MobileHeader';
 
-const Header = () => {
+import MobileHeader from './MobileHeader';
+import { Session } from 'next-auth';
+import AvatarComponent from '../Avatar';
+import LogOutBtn from '../LogOutBtn';
+
+const Header = ({ session }: { session: Session }) => {
   const pathname = usePathname();
+  const user_name = session?.user?.name || 'IN';
   return (
     <>
       <header className="flex w-full justify-between bg-dark-500 p-5 text-light-100">
@@ -53,7 +59,12 @@ const Header = () => {
             </Link>
           </li>
         </ul>
-        <MobileHeader />
+        <div className="hidden items-center gap-4 md:flex">
+          <AvatarComponent user_name={user_name} />
+          <LogOutBtn />
+        </div>
+
+        <MobileHeader user_name={user_name} />
       </header>
     </>
   );

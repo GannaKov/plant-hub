@@ -1,5 +1,5 @@
 import NextAuth, { User } from 'next-auth';
-import { compare } from 'bcryptjs';
+// import { compare } from 'bcryptjs';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { db } from '@/database/drizzle';
 import { users } from '@/database/schema';
@@ -23,12 +23,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           .limit(1);
 
         if (user.length === 0) return null;
-
-        const isPasswordValid = await compare(
-          credentials.password.toString(),
-          user[0].password
-        );
-
+        // CHANGE IT TO HASHED PASSWORD !!!!!!!!!!!!!!
+        // const isPasswordValid = await compare(
+        //   credentials.password.toString(),
+        //   user[0].password
+        // );
+        const isPasswordValid = credentials.password === user[0].password;
         if (!isPasswordValid) return null;
 
         return {

@@ -5,17 +5,20 @@
 // import { users } from '@/database/schema';
 // import { hash } from 'bcryptjs';
 import { signIn } from '@/auth';
+import { signOut } from '@/auth';
 
 export const signInWithCredentials = async (
   params: Pick<AuthCredentials, 'login' | 'password'>
 ) => {
   const { login, password } = params;
+  console.log('object', login, password);
   try {
     const result = await signIn('credentials', {
       login,
       password,
       redirect: false,
     });
+    console.log('result', result);
     if (result?.error) {
       return { success: false, error: result.error };
     }
@@ -24,4 +27,8 @@ export const signInWithCredentials = async (
     console.log(error, 'Signin error');
     return { success: false, error: 'Signin error' };
   }
+};
+
+export const logout = async () => {
+  await signOut();
 };

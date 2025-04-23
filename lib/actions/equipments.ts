@@ -28,6 +28,7 @@ type EquipmentStopFormValues = {
   endDate: Date;
   endTime: string;
 };
+
 export const updateEquipmentStop = async (
   activeStopId: string,
   values: EquipmentStopFormValues
