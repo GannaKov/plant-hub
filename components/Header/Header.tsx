@@ -13,7 +13,7 @@ import LogOutBtn from '../LogOutBtn';
 
 const Header = ({ session }: { session: Session }) => {
   const pathname = usePathname();
-  const user_name = session?.user?.name || 'IN';
+  const user_name = session?.user?.fullName || 'IN';
   return (
     <>
       <header className="flex w-full justify-between bg-dark-500 p-5 text-light-100">
