@@ -164,6 +164,7 @@ const EquipmentStopForm = ({
                     type="single"
                     className="mx-auto flex flex-wrap items-center justify-center gap-6"
                     defaultValue="failure-stop"
+                    onValueChange={field.onChange}
                   >
                     <div className="flex gap-6">
                       <ToggleGroupItem
