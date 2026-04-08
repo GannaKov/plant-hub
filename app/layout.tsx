@@ -1,5 +1,5 @@
-import './globals.css';
 import type { Metadata } from 'next';
+import './globals.css';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Toaster } from '@/components/ui/sonner';
 
@@ -28,7 +28,7 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <SessionProvider session={session}>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
